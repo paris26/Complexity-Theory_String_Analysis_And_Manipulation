@@ -1,3 +1,5 @@
+// TODO: fix problem with headers & make files compile
+
 #ifndef IS_SUBSTRING_H
 #define IS_SUBSTRING_H
 

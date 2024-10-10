@@ -4,6 +4,7 @@
 #include <unordered_set>
 #include "isSubset.h"
 #include "isSubstring.h"
+#include "SubsetCombination.h"
 
 using namespace std;
 
@@ -117,7 +118,10 @@ int main() {
     // cout << "Is S1 a subset of S2? " << (isSubset(S1, S2) ? "Yes" : "No") << endl;
     // cout << "Is S1 a subset of S3? " << (isSubset(S1, S3) ? "Yes" : "No") << endl;
 
-     cout << "Is S2 a substring of S1? " << (isSubstring(S1, S2) ? "Yes" : "No") << endl;
+    // cout << "Is S2 a substring of S1? " << (isSubstring(S1, S2) ? "Yes" : "No") << endl;
+
+     cout << "Number of subset combinations: " << SubsetCombination(S1, S2) << endl;
+
 
     return 0;
 }

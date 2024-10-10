@@ -8,7 +8,7 @@ long long factorial(int n) {
     return n * factorial(n - 1);
 }
 
-long long calculatePermutations(const std::string& s1, const std::string& s2) {
+long long SubsetCombination(const std::string& s1, const std::string& s2) {
     std::unordered_map<char, int> char_count;
     
     // Count occurrences of each character in s1
