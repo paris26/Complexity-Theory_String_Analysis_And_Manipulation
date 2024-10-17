@@ -5,6 +5,7 @@
 #include "isSubset.h"
 #include "isSubstring.h"
 #include "SubsetCombination.h"
+#include "removeDuplicates.h"
 
 using namespace std;
 
@@ -15,19 +16,6 @@ void readStrings(string &s1, string &s2, string &s3) {
     cin >> s2;
     cout << "Enter the third string: ";
     cin >> s3;
-}
-
-// Function to remove duplicates from a string
-string removeDuplicates(const string &str) {
-    unordered_set<char> seen;
-    string result;
-    for (char ch : str) {
-        if (seen.find(ch) == seen.end()) {
-            seen.insert(ch);
-            result += ch;
-        }
-    }
-    return result;
 }
 
 // Function to merge two halves
@@ -105,22 +93,17 @@ void printStrings(const string &s1, const string &s2, const string &s3) {
 
 int main() {
     // Create 3 strings
-    string S1, S2, S3;
+    //string S1, S2, S3;
 
     // Assuming readStrings is a function that reads the strings
-    readStrings(S1, S2, S3);
+    //readStrings(S1, S2, S3);   
+    string S1 = "abababaababab";
+    string S2 = "abc";
+    string S3 = "abab";
 
-    // Compare S1 and S2
-    // CompareFunMergesort(S1, S2);
+    isSubset(S1, S2) ? cout << "S2 is a subset of S1" << endl : cout << "S2 is not a subset of S1" << endl;
 
-    // printStrings(S1, S2, S3);
-
-    // cout << "Is S1 a subset of S2? " << (isSubset(S1, S2) ? "Yes" : "No") << endl;
-    // cout << "Is S1 a subset of S3? " << (isSubset(S1, S3) ? "Yes" : "No") << endl;
-
-    // cout << "Is S2 a substring of S1? " << (isSubstring(S1, S2) ? "Yes" : "No") << endl;
-
-     cout << "Number of subset combinations: " << SubsetCombination(S1, S2) << endl;
+    isSubstring(S1, S3) ? cout << "S3 is a substring of S1" << endl : cout << "S3 is not a substring of S1" << endl;
 
 
     return 0;
