@@ -1,32 +1,64 @@
-#include "SubsetCombination.h"
-#include <unordered_map>
-
+#include <string>
+#include <iostream>
 using namespace std;
 
-long long factorial(int n) {
-    if (n == 0 || n == 1) return 1;
-    return n * factorial(n - 1);
+//This function prints recursively all possible combinations of characters in a string
+void printCombinations(const string& chars, string current = "", int index = 0) {
+    if (index == chars.length()) {
+        if (!current.empty()) {
+            cout << current << endl;
+        }
+        return;
+    }
+    
+    // Include current character
+    printCombinations(chars, current + chars[index], index + 1);
+    // Exclude current character
+    printCombinations(chars, current, index + 1);
 }
 
-long long SubsetCombination(const std::string& s1, const std::string& s2) {
-    std::unordered_map<char, int> char_count;
-    
-    // Count occurrences of each character in s1
+// Helper function to remove duplicates from a string
+string removal(const string& str) {
+    string result;
+    for (char c : str) {
+        bool found = false;
+        for (char existing : result) {
+            if (c == existing) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            result += c;
+        }
+    }
+    return result;
+}
+
+// Main function that prints combinations and returns count
+long long SubsetCombination(const string& s1, const string& s2) {
+    // Get common characters between s1 and s2
+    string common_chars;
     for (char c : s1) {
-        if (s2.find(c) != std::string::npos) {  // Only count if char is in s2
-            char_count[c]++;
+        bool found = false;
+        for (char s2_char : s2) {
+            if (c == s2_char) {
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            common_chars += c;
         }
     }
     
-    int total_chars = 0;
-    long long denominator = 1;
+    // Remove duplicates from common characters
+    common_chars = removal(common_chars);
     
-    // Calculate total characters and denominator for repeated characters
-    for (const auto& pair : char_count) {
-        total_chars += pair.second;
-        denominator *= factorial(pair.second);
-    }
+    // Print all combinations
+    cout << "Combinations:" << endl;
+    printCombinations(common_chars);
     
-    // Calculate permutations
-    return factorial(total_chars) / denominator;
+    // Calculate count using bit shifting (2^n - 1)
+    return (1LL << common_chars.length()) - 1;
 }

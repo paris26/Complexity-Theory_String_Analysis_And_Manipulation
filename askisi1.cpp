@@ -18,73 +18,6 @@ void readStrings(string &s1, string &s2, string &s3) {
     cin >> s3;
 }
 
-// Function to merge two halves
-void merge(string &s, int left, int mid, int right) {
-    int n1 = mid - left + 1;
-    int n2 = right - mid;
-
-    string L = s.substr(left, n1);
-    string R = s.substr(mid + 1, n2);
-
-    int i = 0, j = 0, k = left;
-    while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            s[k] = L[i];
-            i++;
-        } else {
-            s[k] = R[j];
-            j++;
-        }
-        k++;
-    }
-
-    while (i < n1) {
-        s[k] = L[i];
-        i++;
-        k++;
-    }
-
-    while (j < n2) {
-        s[k] = R[j];
-        j++;
-        k++;
-    }
-}
-
-// Function to perform mergesort on a string
-void mergesort(string &s, int left, int right) {
-    if (left < right) {
-        int mid = left + (right - left) / 2;
-        mergesort(s, left, mid);
-        mergesort(s, mid + 1, right);
-        merge(s, left, mid, right);
-    }
-}
-
-void CompareFunMergesort(string s1, string s2) {
-    // Create temporary copies of the strings
-    string temp1 = s1;
-    string temp2 = s2;
-
-    // Remove duplicates
-    temp1 = removeDuplicates(temp1);
-    temp2 = removeDuplicates(temp2);
-
-    // Sort the strings
-    mergesort(temp1, 0, temp1.length() - 1);
-    mergesort(temp2, 0, temp2.length() - 1);
-
-    // Compare if all symbols of one string exist in the other
-    bool allExist = includes(temp1.begin(), temp1.end(), temp2.begin(), temp2.end()) ||
-                    includes(temp2.begin(), temp2.end(), temp1.begin(), temp1.end());
-
-    if (allExist) {
-        cout << "All symbols of one string exist in the other" << endl;
-    } else {
-        cout << "Not all symbols of one string exist in the other" << endl;
-    }
-}
-
 void printStrings(const string &s1, const string &s2, const string &s3) {
     cout << "First string: " << s1 << endl;
     cout << "Second string: " << s2 << endl;
@@ -92,19 +25,27 @@ void printStrings(const string &s1, const string &s2, const string &s3) {
 }
 
 int main() {
-    // Create 3 strings
-    //string S1, S2, S3;
-
-    // Assuming readStrings is a function that reads the strings
-    //readStrings(S1, S2, S3);   
     string S1 = "abababaababab";
     string S2 = "abc";
-    string S3 = "abab";
+    string S3 = "abababaa";
 
-    isSubset(S1, S2) ? cout << "S2 is a subset of S1" << endl : cout << "S2 is not a subset of S1" << endl;
+    bool s2subset1 = false;
+
+    if(isSubset(S2, S1)){
+        cout << "S2 is a subset of S1" << endl;
+        s2subset1 = true;
+    }else{
+        cout << "S2 is not a subset of S1" << endl;
+    }
+
 
     isSubstring(S1, S3) ? cout << "S3 is a substring of S1" << endl : cout << "S3 is not a substring of S1" << endl;
 
+    if(s2subset1){
+        cout << "The number of ways to choose S2 from S1 is: " << SubsetCombination(S1, S2) << endl;
+    }else{
+        cout << "The number of ways to choose S2 from S1 is: 0 [s2 is not a SUBSET]" << endl;
+    }
 
     return 0;
 }

@@ -3,15 +3,24 @@
 #include <unordered_set>
 using namespace std;
 
-// Function to remove duplicates from a string
-string removeDuplicates(const string &str) {
-    unordered_set<char> seen;
-    string result;
-    for (char ch : str) {
-        if (seen.find(ch) == seen.end()) {
-            seen.insert(ch);
-            result += ch;
+void removeDuplicates(string& str) {
+    if (str.length() < 2) return;
+    
+    int writePos = 1;
+    for (int i = 1; i < str.length(); i++) {
+        // Check if current char exists in string[0..writePos-1]
+        int j;
+        for (j = 0; j < writePos; j++) {
+            if (str[i] == str[j])
+                break;
+        }
+        
+        // If not found, add it to next position
+        if (j == writePos) {
+            str[writePos] = str[i];
+            writePos++;
         }
     }
-    return result;
+    // cut the string up to that position 
+    str.resize(writePos);  
 }

@@ -4,6 +4,6 @@
 #include <string>
 using namespace std;
 
-string removeDuplicates(const string &str);
+void removeDuplicates(string &str);
 
 #endif

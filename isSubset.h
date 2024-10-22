@@ -4,6 +4,6 @@
 #include <string>
 using namespace std;
 
-bool isSubset(const string &s1 , const string &s2);
+bool isSubset(const string &s1 ,const string &s2);
 
 #endif
