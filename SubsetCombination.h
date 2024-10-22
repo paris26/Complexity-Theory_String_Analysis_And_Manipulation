@@ -4,8 +4,8 @@
 #include <string>
 using namespace std;
 
-long long factorial(int n);
+void printCombinations(const string& chars, string current = "", int index = 0);
+string removal(const string& str);
+long long SubsetCombination(const string& s1, const string& s2);
 
-long long SubsetCombination(const string &s1 , const string &s2);
-
-#endif
+#endif 
