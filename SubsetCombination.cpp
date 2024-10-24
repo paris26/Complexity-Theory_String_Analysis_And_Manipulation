@@ -1,64 +1,46 @@
+// builtin libraries
 #include <string>
 #include <iostream>
-using namespace std;
+#include <vector>
+#include <unordered_set>
 
-//This function prints recursively all possible combinations of characters in a string
-void printCombinations(const string& chars, string current = "", int index = 0) {
-    if (index == chars.length()) {
-        if (!current.empty()) {
-            cout << current << endl;
+// include my libraries 
+#include "SubsetCombination.h"
+#include "isSubset.h"
+#include "isSubstring.h"
+
+void SubsetCombination(const string& S1, const string& S2, const string& S3 ){
+    // counter to store number of valid strings
+    int counter = 0;
+    // length of S1 to iterate over
+    int n = S1.length();
+
+    // create a set to store all the characters of S3
+    // for faster lookup times
+    unordered_set<char> required(S3.begin(), S3.end());
+
+    // in this function we search for subsets
+    cout << "Correct Subsets are: " << endl;
+
+    //first for loop will go over all the elements of S1
+    for( int end=0; end <= n; end++){
+        // this is because we got look (n-index) length substrings
+        // because there are only n-index available 
+        for( int start=0; start<=n-end; start++){
+            // we take in each iteration a smaller substring
+            // of S1 and check if it is a subset of S2
+            string subToCheck = S1.substr(start, end);
+
+            // Check two conditions:
+            // 1. subToCheck contains S2 as a substring
+            // 2. subToCheck contains all characters from s_prime
+            if(isSubstring(subToCheck, S2) && isSubset(subToCheck, S3)) {
+                cout << subToCheck << endl;
+                counter++;  
         }
-        return;
     }
-    
-    // Include current character
-    printCombinations(chars, current + chars[index], index + 1);
-    // Exclude current character
-    printCombinations(chars, current, index + 1);
+
+    cout << "Number of correct subsets: " << counter << endl;
+
 }
-
-// Helper function to remove duplicates from a string
-string removal(const string& str) {
-    string result;
-    for (char c : str) {
-        bool found = false;
-        for (char existing : result) {
-            if (c == existing) {
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            result += c;
-        }
-    }
-    return result;
-}
-
-// Main function that prints combinations and returns count
-long long SubsetCombination(const string& s1, const string& s2) {
-    // Get common characters between s1 and s2
-    string common_chars;
-    for (char c : s1) {
-        bool found = false;
-        for (char s2_char : s2) {
-            if (c == s2_char) {
-                found = true;
-                break;
-            }
-        }
-        if (found) {
-            common_chars += c;
-        }
-    }
-    
-    // Remove duplicates from common characters
-    common_chars = removal(common_chars);
-    
-    // Print all combinations
-    cout << "Combinations:" << endl;
-    printCombinations(common_chars);
-    
-    // Calculate count using bit shifting (2^n - 1)
-    return (1LL << common_chars.length()) - 1;
 }

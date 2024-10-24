@@ -1,11 +1,10 @@
-// TODO: fix problem with headers & make files compile
-
 #ifndef IS_SUBSTRING_H
 #define IS_SUBSTRING_H
 
 #include <string>
 using namespace std;
 
-bool isSubstring(const string &s1 , const string &s2);
+bool checkSecondString(const string &s1, const string &s2, int index);
+bool isSubstring(const string &s1, const string &s2);
 
 #endif

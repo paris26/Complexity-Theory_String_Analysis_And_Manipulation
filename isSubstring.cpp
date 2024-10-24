@@ -2,9 +2,13 @@
 #include <string>
 using namespace std;
 
-// checks all the remaining elements
-// so that the 2 strings are equal
+// CHANGED: Added bounds checking for s1
 bool checkSecondString(const string &s1, const string &s2, int index) {
+    // TODO : Check if there's enough room in s1 to contain s2 starting at index
+    if (index + s2.length() > s1.length()) {
+        return false;
+    }
+    
     for (int i = 0; i < s2.length(); i++) {
         if (s1[i + index] != s2[i]) {
             return false;
@@ -13,15 +17,12 @@ bool checkSecondString(const string &s1, const string &s2, int index) {
     return true;
 }
 
-// we use a function to check for the first element 
-// of the second string in the first string
-// if we find it we loop for all the next elements in both
 bool isSubstring(const string &s1, const string &s2) {
-    // we know that if s2 is bigger than s1 to immediately return false
+    // if s2 is longer than s1, it cannnot be a substring
     if (s2.length() > s1.length()) return false;
     
-
-    for (int i = 0; i <= s1.length(); i++) {
+    // check for each character in s1 if it is the start of s2
+    for (int i = 0; i < s1.length(); i++) {
         if (s1[i] == s2[0]) {
             if (checkSecondString(s1, s2, i)) return true;
         }

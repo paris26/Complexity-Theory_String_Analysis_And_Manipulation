@@ -2,10 +2,10 @@
 #define SUBSET_COMBINATION_H
 
 #include <string>
+#include <vector>
 using namespace std;
 
-long long factorial(int n);
-
-long long SubsetCombination(const string &s1 , const string &s2);
+void SubsetCombination(const string& s1, const string& s2, const string& s_prime);
+void theoreticalCount(int length);
 
 #endif
